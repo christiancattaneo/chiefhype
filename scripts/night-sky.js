@@ -58,7 +58,7 @@
         
         const config = {
             container: 'celestial-map',
-            datapath: 'https://ofrohn.github.io/d3-celestial/data/',
+            datapath: 'https://cdn.jsdelivr.net/npm/d3-celestial@0.7.30/data/',
             width: 0,
             projection: 'aitoff',
             transform: 'equatorial',
