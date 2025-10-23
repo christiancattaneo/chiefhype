@@ -44,7 +44,7 @@ body {
     z-index: 0;
     background: #000000 url('https://cdn.eso.org/images/large/eso0932a.jpg') repeat-x center center;
     background-size: auto 140%; /* Zoom in 40% */
-    animation: rotateMilkyWay 7200s linear infinite;
+    animation: rotateMilkyWay 60s linear infinite;
     overflow: hidden;
 }
 
