@@ -46,18 +46,10 @@ body {
     overflow: hidden;
 }
 
-#celestial-map svg {
+#celestial-map canvas {
     display: block;
     width: 100%;
     height: 100%;
-}
-
-/* Hide any D3-Celestial UI elements */
-#celestial-form,
-#celestial-loc,
-.celestial-date,
-#download {
-    display: none !important;
 }
 
 /* ==================== */
