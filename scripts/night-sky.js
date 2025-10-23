@@ -1,12 +1,12 @@
 /**
- * Production-Quality Rotating Night Sky
- * Realistic Milky Way with proper rotation
+ * Photorealistic Milky Way Night Sky
+ * Rich colors like real astrophotography
  */
 
 (function() {
     'use strict';
 
-    console.log('[NIGHT SKY] Initializing production starfield...');
+    console.log('[NIGHT SKY] Initializing photorealistic Milky Way...');
 
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -17,36 +17,73 @@
 
     // Configuration
     const CONFIG = {
-        rotationSpeed: 0.00005, // Very slow, completes ~360° in 2 hours
-        nearStars: 1500,
-        farStars: 2500,
-        milkyWayStars: 4000,
-        centerX: 0.5, // Milky Way center position (proportion of screen)
-        centerY: 0.45
+        rotationSpeed: 0.00003, // Ultra slow - completes in ~3 hours
+        whiteStars: 3000,
+        milkyWayCoreStars: 6000,
+        milkyWayEdgeStars: 3000
+    };
+
+    // Milky Way color palette (from real astrophotography)
+    const MILKY_WAY_COLORS = {
+        core: [
+            { color: [255, 220, 180], weight: 0.3 }, // Warm orange/yellow (galactic core)
+            { color: [255, 200, 150], weight: 0.2 }, // Gold
+            { color: [255, 180, 120], weight: 0.15 }, // Deep orange
+            { color: [200, 150, 255], weight: 0.15 }, // Purple (nebulae)
+            { color: [255, 255, 255], weight: 0.2 }  // White
+        ],
+        edge: [
+            { color: [150, 200, 255], weight: 0.25 }, // Blue (star forming regions)
+            { color: [180, 150, 255], weight: 0.2 },  // Purple
+            { color: [255, 200, 200], weight: 0.15 }, // Pink (H-alpha regions)
+            { color: [200, 220, 255], weight: 0.2 },  // Light blue
+            { color: [255, 255, 255], weight: 0.2 }   // White
+        ]
     };
 
     /**
-     * Star class
+     * Star class with realistic colors
      */
     class Star {
-        constructor(type = 'normal') {
+        constructor(type = 'white') {
             this.angle = Math.random() * Math.PI * 2;
-            this.distance = type === 'milkyway' 
-                ? Math.random() * 0.3 + 0.2  // Clustered in band
-                : Math.random() * 0.7 + 0.1; // Distributed
-            
-            this.size = type === 'milkyway'
-                ? Math.random() * 1.2 + 0.3
-                : Math.random() * 2 + 0.5;
-            
-            this.opacity = type === 'milkyway'
-                ? Math.random() * 0.4 + 0.1
-                : Math.random() * 0.8 + 0.2;
-            
-            this.layer = type === 'near' ? 1.2 : type === 'far' ? 0.8 : 1;
-            this.twinkleSpeed = Math.random() * 0.02 + 0.01;
-            this.twinklePhase = Math.random() * Math.PI * 2;
             this.type = type;
+            
+            if (type === 'milkyway-core') {
+                // Dense core region
+                this.distance = Math.random() * 0.15 + 0.25;
+                this.size = Math.random() * 1.5 + 0.4;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.color = this.pickColor(MILKY_WAY_COLORS.core);
+            } else if (type === 'milkyway-edge') {
+                // Outer regions
+                this.distance = Math.random() * 0.25 + 0.15;
+                this.size = Math.random() * 1.2 + 0.3;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = this.pickColor(MILKY_WAY_COLORS.edge);
+            } else {
+                // Normal white stars
+                this.distance = Math.random() * 0.8;
+                this.size = Math.random() * 2 + 0.5;
+                this.opacity = Math.random() * 0.9 + 0.1;
+                this.color = [255, 255, 255];
+            }
+            
+            this.layer = type.includes('milkyway') ? 1 : (Math.random() > 0.5 ? 1.1 : 0.9);
+            this.twinkleSpeed = Math.random() * 0.015 + 0.005;
+            this.twinklePhase = Math.random() * Math.PI * 2;
+        }
+
+        pickColor(palette) {
+            const rand = Math.random();
+            let cumWeight = 0;
+            for (let i = 0; i < palette.length; i++) {
+                cumWeight += palette[i].weight;
+                if (rand <= cumWeight) {
+                    return palette[i].color;
+                }
+            }
+            return palette[0].color;
         }
 
         update() {
@@ -54,25 +91,21 @@
         }
 
         getPosition(rotation) {
-            // Calculate position with rotation
             const rotatedAngle = this.angle + (rotation * this.layer);
-            const centerX = width * CONFIG.centerX;
-            const centerY = height * CONFIG.centerY;
+            const centerX = width * 0.5;
+            const centerY = height * 0.45;
             
-            if (this.type === 'milkyway') {
-                // Milky Way band - create elongated distribution
-                const bandAngle = rotatedAngle;
-                const bandRadius = Math.min(width, height) * this.distance;
-                
-                // Create the curved Milky Way band
-                const offsetY = Math.sin(bandAngle * 2) * height * 0.15;
+            if (this.type.includes('milkyway')) {
+                // Milky Way band with realistic curve
+                const bandRadius = Math.min(width, height) * (this.distance + 0.2);
+                const offsetY = Math.sin(rotatedAngle * 1.5) * height * 0.2;
                 
                 return {
-                    x: centerX + Math.cos(bandAngle) * bandRadius,
-                    y: centerY + Math.sin(bandAngle) * bandRadius * 0.3 + offsetY
+                    x: centerX + Math.cos(rotatedAngle) * bandRadius,
+                    y: centerY + Math.sin(rotatedAngle) * bandRadius * 0.25 + offsetY
                 };
             } else {
-                // Regular stars - full sky distribution
+                // Full sky stars
                 const radius = Math.min(width, height) * this.distance;
                 return {
                     x: centerX + Math.cos(rotatedAngle) * radius,
@@ -84,27 +117,25 @@
         draw(rotation) {
             const pos = this.getPosition(rotation);
             
-            // Skip if off screen
             if (pos.x < -50 || pos.x > width + 50 || 
                 pos.y < -50 || pos.y > height + 50) {
                 return;
             }
 
-            // Twinkle effect
             const twinkle = (Math.sin(this.twinklePhase) + 1) / 2;
             const finalOpacity = this.opacity * (0.7 + twinkle * 0.3);
 
             // Draw star
             ctx.beginPath();
             ctx.arc(pos.x, pos.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
+            ctx.fillStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${finalOpacity})`;
             ctx.fill();
 
-            // Glow for brighter stars
-            if (this.size > 1.5 && this.opacity > 0.5) {
+            // Glow
+            if (this.size > 1 && this.opacity > 0.4) {
                 ctx.beginPath();
-                ctx.arc(pos.x, pos.y, this.size * 2.5, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity * 0.15})`;
+                ctx.arc(pos.x, pos.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${finalOpacity * 0.1})`;
                 ctx.fill();
             }
         }
@@ -121,7 +152,7 @@
         }
         
         container.appendChild(canvas);
-        console.log('[NIGHT SKY] Canvas added to container');
+        console.log('[NIGHT SKY] Canvas added');
         
         resize();
         generateStars();
@@ -129,70 +160,78 @@
 
         window.addEventListener('resize', resize);
         
-        console.log('[NIGHT SKY] ✓ Starfield initialized');
-        console.log('[NIGHT SKY] Total stars:', stars.length);
-        console.log('[NIGHT SKY] Rotation speed: 360° in ~2 hours');
+        console.log('[NIGHT SKY] ✓ Photorealistic Milky Way ready');
     }
 
     /**
-     * Generate realistic star distribution
+     * Generate stars
      */
     function generateStars() {
         stars = [];
 
-        // Milky Way band stars (concentrated)
-        console.log('[NIGHT SKY] Generating Milky Way stars...');
-        for (let i = 0; i < CONFIG.milkyWayStars; i++) {
-            stars.push(new Star('milkyway'));
+        // Milky Way core (dense, warm colors)
+        for (let i = 0; i < CONFIG.milkyWayCoreStars; i++) {
+            stars.push(new Star('milkyway-core'));
         }
 
-        // Near stars (larger, brighter)
-        console.log('[NIGHT SKY] Generating near stars...');
-        for (let i = 0; i < CONFIG.nearStars; i++) {
-            stars.push(new Star('near'));
+        // Milky Way edge (cooler colors)
+        for (let i = 0; i < CONFIG.milkyWayEdgeStars; i++) {
+            stars.push(new Star('milkyway-edge'));
         }
 
-        // Far stars (smaller, fainter)
-        console.log('[NIGHT SKY] Generating far stars...');
-        for (let i = 0; i < CONFIG.farStars; i++) {
-            stars.push(new Star('far'));
+        // Background white stars
+        for (let i = 0; i < CONFIG.whiteStars; i++) {
+            stars.push(new Star('white'));
         }
 
-        console.log('[NIGHT SKY] Total stars generated:', stars.length);
+        console.log('[NIGHT SKY] Stars:', CONFIG.milkyWayCoreStars, 'core +', CONFIG.milkyWayEdgeStars, 'edge +', CONFIG.whiteStars, 'white');
     }
 
     /**
-     * Resize canvas
+     * Resize
      */
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-        console.log('[NIGHT SKY] Canvas resized:', width, 'x', height);
     }
 
     /**
-     * Draw Milky Way glow
+     * Draw nebula clouds (background glow)
      */
-    function drawMilkyWayGlow(rotation) {
-        const centerX = width * CONFIG.centerX;
-        const centerY = height * CONFIG.centerY;
-        const maxRadius = Math.min(width, height) * 0.5;
-
-        // Create Milky Way glow effect
-        for (let i = 0; i < 360; i += 3) {
-            const angle = (i * Math.PI / 180) + rotation;
-            const radius = maxRadius * 0.25;
-            const offsetY = Math.sin(angle * 2) * height * 0.15;
+    function drawNebulaClouds(rotation) {
+        const centerX = width * 0.5;
+        const centerY = height * 0.45;
+        
+        // Create large nebula-like glows
+        for (let i = 0; i < 50; i++) {
+            const angle = (i / 50) * Math.PI * 2 + rotation;
+            const radius = Math.min(width, height) * (0.25 + Math.random() * 0.1);
+            const offsetY = Math.sin(angle * 1.5) * height * 0.2;
             
             const x = centerX + Math.cos(angle) * radius;
-            const y = centerY + Math.sin(angle) * radius * 0.3 + offsetY;
-
-            const gradient = ctx.createRadialGradient(x, y, 0, x, y, 80);
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.015)');
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            const y = centerY + Math.sin(angle) * radius * 0.25 + offsetY;
+            
+            // Vary colors for realism
+            const colorChoice = Math.random();
+            let color;
+            if (colorChoice > 0.7) {
+                color = '255, 200, 150'; // Orange/gold
+            } else if (colorChoice > 0.4) {
+                color = '180, 150, 255'; // Purple
+            } else if (colorChoice > 0.2) {
+                color = '255, 180, 200'; // Pink
+            } else {
+                color = '150, 200, 255'; // Blue
+            }
+            
+            const glowSize = Math.random() * 120 + 80;
+            const gradient = ctx.createRadialGradient(x, y, 0, x, y, glowSize);
+            gradient.addColorStop(0, `rgba(${color}, 0.03)`);
+            gradient.addColorStop(0.5, `rgba(${color}, 0.015)`);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
             ctx.fillStyle = gradient;
-            ctx.fillRect(x - 80, y - 80, 160, 160);
+            ctx.fillRect(x - glowSize, y - glowSize, glowSize * 2, glowSize * 2);
         }
     }
 
@@ -200,27 +239,25 @@
      * Animation loop
      */
     function animate() {
-        // Clear canvas - pure black
+        // Clear - pure black
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, width, height);
 
-        // Update rotation (simulates Earth's rotation)
+        // Update rotation
         rotation += CONFIG.rotationSpeed;
         if (rotation >= Math.PI * 2) {
             rotation -= Math.PI * 2;
-            console.log('[NIGHT SKY] Completed full 360° rotation');
         }
 
-        // Draw Milky Way glow first
-        drawMilkyWayGlow(rotation);
+        // Draw nebula clouds first (background layer)
+        drawNebulaClouds(rotation);
 
-        // Update and draw all stars
+        // Update and draw stars
         stars.forEach(star => {
             star.update();
             star.draw(rotation);
         });
 
-        // Continue animation
         animationId = requestAnimationFrame(animate);
     }
 
@@ -233,7 +270,7 @@
         }
     });
 
-    // Initialize when DOM is ready
+    // Initialize
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
