@@ -72,22 +72,6 @@ body {
     }
 }
 
-/* Foreground stars overlay */
-#stars-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-#stars-overlay canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
 
 /* ==================== */
 /* Main Container */
@@ -119,6 +103,17 @@ body {
     color: var(--text-primary);
     text-transform: none;
     letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.hero .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    opacity: 0.9;
 }
 
 /* ==================== */
