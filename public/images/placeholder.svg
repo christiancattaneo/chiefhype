@@ -1,0 +1,44 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1147;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f3ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#b14dff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff006e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#00f3ff" stroke-width="1"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#00f3ff" stroke-width="1"/>
+    <line x1="0" y1="450" x2="800" y2="450" stroke="#00f3ff" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="600" stroke="#00f3ff" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="600" stroke="#00f3ff" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="600" stroke="#00f3ff" stroke-width="1"/>
+  </g>
+  
+  <!-- Center play icon -->
+  <circle cx="400" cy="300" r="60" fill="none" stroke="url(#accentGradient)" stroke-width="3" opacity="0.8"/>
+  <circle cx="400" cy="300" r="50" fill="none" stroke="url(#accentGradient)" stroke-width="2" opacity="0.5"/>
+  <polygon points="380,280 380,320 420,300" fill="url(#accentGradient)" opacity="0.9"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="3" fill="#00f3ff" opacity="0.6"/>
+  <circle cx="700" cy="500" r="3" fill="#b14dff" opacity="0.6"/>
+  <circle cx="650" cy="100" r="2" fill="#ff006e" opacity="0.6"/>
+  <circle cx="150" cy="500" r="2" fill="#00f3ff" opacity="0.6"/>
+  
+  <!-- Text -->
+  <text x="400" y="400" font-family="monospace" font-size="20" fill="#00f3ff" text-anchor="middle" opacity="0.7">
+    VIDEO PLACEHOLDER
+  </text>
+</svg>
+

@@ -1,0 +1,372 @@
+# ==========================================
+# Operating System Files
+# ==========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==========================================
+# IDEs and Editors
+# ==========================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+*~
+
+# Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ==========================================
+# Dependencies and Package Managers
+# ==========================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv
+venv/
+ENV/
+env/
+.pyenv
+
+# ==========================================
+# Environment and Configuration
+# ==========================================
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+*.env
+
+# API Keys and Secrets (CRITICAL - NEVER COMMIT)
+**/secrets/
+**/credentials/
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx
+**/*.cer
+**/*.crt
+**/serviceAccountKey.json
+firebase-admin-key.json
+google-credentials.json
+aws-credentials
+.aws/
+.gcp/
+
+# Configuration files with sensitive data
+config.local.js
+config.local.json
+config.local.yaml
+*-config.local.*
+
+# ==========================================
+# Build Output and Cache
+# ==========================================
+
+# Build directories
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.temp/
+.tmp/
+*.tsbuildinfo
+
+# Compiled files
+*.js.map
+*.css.map
+
+# ==========================================
+# Testing
+# ==========================================
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ==========================================
+# Logs
+# ==========================================
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Backup and Temporary Files
+# ==========================================
+
+# Backups
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# ==========================================
+# Media Files (Exclude from repository)
+# ==========================================
+
+# Large video files - only placeholder videos in repo
+public/videos/*.mp4
+public/videos/*.mov
+public/videos/*.avi
+public/videos/*.webm
+!public/videos/placeholder.mp4
+
+# High-resolution images
+public/images/*.psd
+public/images/*.ai
+public/images/*.sketch
+*.raw
+
+# ==========================================
+# Database
+# ==========================================
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# PostgreSQL
+*.sql
+
+# ==========================================
+# Security and Certificates
+# ==========================================
+
+# SSL certificates
+*.pem
+*.key
+*.cert
+*.crt
+*.ca-bundle
+
+# ==========================================
+# Firebase
+# ==========================================
+
+# Firebase cache
+.firebase/
+.firebaserc.local
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+pubsub-debug.log
+
+# Firebase emulator data
+*-emulator-data/
+
+# ==========================================
+# Git
+# ==========================================
+
+# Git merge files
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
+
+# ==========================================
+# Documentation (Generated)
+# ==========================================
+
+# Generated documentation
+docs/_build/
+site/
+
+# ==========================================
+# Miscellaneous
+# ==========================================
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# System files
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Lock files (team may decide to include these)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Parcel-bundler cache
+.parcel-cache
+
+# ==========================================
+# Project Specific
+# ==========================================
+
+# Deployment artifacts
+deploy/
+deployment/
+
+# Analytics and tracking
+.analytics/
+
+# Performance monitoring
+.perf/
+
+# Sentry
+.sentryclirc
+
