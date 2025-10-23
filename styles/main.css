@@ -32,10 +32,10 @@ body {
 }
 
 /* ==================== */
-/* Galaxy 360 Background */
+/* Real Night Sky Background */
 /* ==================== */
 
-#galaxy-container {
+#celestial-map {
     position: fixed;
     top: 0;
     left: 0;
@@ -46,10 +46,18 @@ body {
     overflow: hidden;
 }
 
-#galaxy-container canvas {
+#celestial-map svg {
     display: block;
     width: 100%;
     height: 100%;
+}
+
+/* Hide any D3-Celestial UI elements */
+#celestial-form,
+#celestial-loc,
+.celestial-date,
+#download {
+    display: none !important;
 }
 
 /* ==================== */
